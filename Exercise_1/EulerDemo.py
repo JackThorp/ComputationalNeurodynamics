@@ -18,6 +18,7 @@ dt_large = 0.5 # Large integration step
 # Create time points
 Tmin = 0
 Tmax = 5
+# arange returns evenly spaced values over interval
 T = np.arange(Tmin, Tmax+dt, dt)
 T_small = np.arange(Tmin, Tmax+dt_small, dt_small)
 T_large = np.arange(Tmin, Tmax+dt_large, dt_large)
@@ -25,7 +26,7 @@ y = np.zeros(len(T))
 y_small = np.zeros(len(T_small))
 y_large = np.zeros(len(T_large))
 
-# Exact solution
+# Exact solution - calculates e^x for all elements
 y = np.exp(T)
 
 # Approximated solution with small integration Step
