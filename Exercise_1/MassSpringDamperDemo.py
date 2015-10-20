@@ -34,6 +34,7 @@ dydt[0] = 0 # Initial value
 for t in xrange(1, len(T)):
   dydt2[t]   = -(c*(dydt[t-1] + dt*dydt[t-1]) + k*y[t-1])/m
   dydt[t]    = dydt[t-1] + dt*dydt2[t]
+  y[t]       = y[t-1] + dt*dydt[t-1]
 
 # Approximated solution with large integration Step
 #y_large[0] = np.exp(Tmin) # Initial value
