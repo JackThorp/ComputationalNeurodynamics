@@ -50,9 +50,25 @@ u[0] = -1
 
 ## SIMULATE
 for t in xrange(len(T)-1):
+
+  k1 = v[t]
+  k2 = v[t] + 0.5*dt*k1
+  k3 = v[t] + 0.5*dt*k2
+  k4 = v[t] + dt*k3
+  k5 = (k1 + 2*k2 + 2*k3 + k4)/6;
+
+  v[t+1] = v[t] + dt*(0.04*k5**2 + 5*k5 + 140 - u[t] + I)
+
+  k1 = u[t]
+  k2 = u[t] + 0.5*dt*k1
+  k3 = u[t] + 0.5*dt*k2
+  k4 = u[t] + dt*k3
+  k5 = (k1 + 2*k2 + 2*k3 + k4)/6;
+
+  u[t+1] = u[t] + dt*(a * (b*v[t] - k5))
   # Update v and u according to Izhikevich's equations
-  v[t+1] = v[t] + dt*(0.04*v[t]**2 + 5*v[t] + 140 - u[t] + I)
-  u[t+1] = u[t] + dt*(a * (b*v[t] - u[t]) )
+  #v[t+1] = v[t] + dt*(0.04*v[t]**2 + 5*v[t] + 140 - u[t] + I)
+  #u[t+1] = u[t] + dt*(a * (b*v[t] - u[t]) )
   
   # Reset the neuron if it has spiked
   if v[t+1] >= 30:
