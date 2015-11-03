@@ -10,13 +10,12 @@ import numpy.random as rn
 from IzNetwork import IzNetwork
 
 
-def RobotConnect4L(Ns, Nm):
+def RobotConnectAvoidance(Ns, Nm):
   """
-  Construct four layers of Izhikevich neurons and connect them together.
-  Layers 0 and 1 comprise sensory neurons, while layers 2 and 3 comprise
-  motor neurons. Sensory neurons excite contralateral motor neurons causing
-  seeking behaviour. Layers are heterogenous populations of Izhikevich
-  neurons with slightly different parameter values.
+  Construct four layers of Izhikevich neurons and connect them together, just
+  as RobotConnect4L. Layers 0 and 1 comprise sensory neurons, while layers 2
+  and 3 comprise motor neurons. In this case, sensory neurons excite
+  ipsilateral motor neurons causing avoidance behaviour.
 
   Inputs:
   Ns -- Number of neurons in sensory layers
@@ -65,14 +64,14 @@ def RobotConnect4L(Ns, Nm):
   # layer[i].S[j] is the connectivity matrix from layer j to layer i
   # s[i,j] is the streght of the connection from neuron j to neuron i
 
-  # Connect 0 to 3 and 1 to 2 for seeking behaviour
-  net.layer[3].S[0]      = np.ones([Nm, Ns])
-  net.layer[3].factor[0] = F
-  net.layer[3].delay[0]  = D * np.ones([Nm, Ns], dtype=int)
+  # Connect 0 to 2 and 1 to 3 for seeking behaviour
+  net.layer[2].S[0]      = np.ones([Nm, Ns])
+  net.layer[2].factor[0] = F
+  net.layer[2].delay[0]  = D * np.ones([Nm, Ns], dtype=int)
 
-  net.layer[2].S[1]      = np.ones([Nm, Ns])
-  net.layer[2].factor[1] = F
-  net.layer[2].delay[1]  = D * np.ones([Nm, Ns], dtype=int)
+  net.layer[3].S[1]      = np.ones([Nm, Ns])
+  net.layer[3].factor[1] = F
+  net.layer[3].delay[1]  = D * np.ones([Nm, Ns], dtype=int)
 
   return net
 

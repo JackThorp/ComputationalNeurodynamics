@@ -9,27 +9,24 @@ of layer 0.
 (C) Murray Shanahan et al, 2015
 """
 
-from Connect2L import Connect2L
+from ConnectQIF2L import ConnectQIF2L
 import numpy as np
 import matplotlib.pyplot as plt
 
 N1 = 4
 N2 = 4
 T  = 500  # Simulation time
-Ib = 5    # Base current
+Ib = 15   # Base current
 
-net = Connect2L(N1, N2)
+net = ConnectQIF2L(N1, N2)
 
 ## Initialise layers
 for lr in xrange(len(net.layer)):
-  net.layer[lr].v = -65 * np.ones(net.layer[lr].N)
-  net.layer[lr].u = net.layer[lr].b * net.layer[lr].v
+  net.layer[lr].v = -65
   net.layer[lr].firings = np.array([])
 
 v1 = np.zeros([T, N1])
 v2 = np.zeros([T, N2])
-u1 = np.zeros([T, N1])
-u2 = np.zeros([T, N2])
 
 ## SIMULATE
 for t in xrange(T):
@@ -42,8 +39,7 @@ for t in xrange(T):
 
    v1[t] = net.layer[0].v
    v2[t] = net.layer[1].v
-   u1[t] = net.layer[0].u
-   u2[t] = net.layer[1].u
+
 
 ## Retrieve firings and add Dirac pulses for presentation
 firings1 = net.layer[0].firings
@@ -69,19 +65,6 @@ plt.plot(range(T), v2)
 plt.title('Population 2 membrane potentials')
 plt.ylabel('Voltage (mV)')
 plt.ylim([-90, 40])
-plt.xlabel('Time (ms)')
-
-## Plot recovery variable
-plt.figure(2)
-plt.subplot(211)
-plt.plot(range(T), u1)
-plt.title('Population 1 recovery variables')
-plt.ylabel('Voltage (mV)')
-
-plt.subplot(212)
-plt.plot(range(T), u2)
-plt.title('Population 2 recovery variables')
-plt.ylabel('Voltage (mV)')
 plt.xlabel('Time (ms)')
 
 ## Raster plots of firings
