@@ -57,9 +57,10 @@ class IzNetwork:
       # If layer[i].S[j] exists then layer[i].factor[j] and
       # layer[i].delay[j] have to exist
       if j in self.layer[i].S:
+        # S is matrix here.  
         S = self.layer[i].S[j]  # target neuron->rows, source neuron->columns
 
-        # Firings contains time and neuron idx of each spike.
+        # Firings contains time and neuron index (idx) of each spike.
         # [t, index of the neuron in the layer j]
         firings = self.layer[j].firings
 

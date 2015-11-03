@@ -50,7 +50,7 @@ def Connect2L(N0, N1):
   ## Connectivity matrix (synaptic weights)
   # layer[i].S[j] is the connectivity matrix from layer j to layer i
   # S(i,j) is the strength of the connection from neuron j to neuron i
-  net.layer[1].S[0]      = np.ones([N1, N0])
+  net.layer[1].S[0]      = np.ones([N1, N0]) # returns a 4x4 matrix. 
   net.layer[1].factor[0] = F
   net.layer[1].delay[0]  = D * np.ones([N1, N0], dtype=int)
 
